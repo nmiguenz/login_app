@@ -1,10 +1,4 @@
-<ion-header>
-  <ion-toolbar color="black">
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding> 
+<ion-content padding scroll="false" padding class="background"> 
   <div class="registerPage">
     <img src="../../assets/login.svg" alt="imagen login" class="imagenLogin"/>
     
@@ -25,10 +19,13 @@
       <ion-icon slot="end" [name]="passwordToggleEyeCpassWord" (click)='cambiarOjoSecreto()'></ion-icon>
     </ion-item>
 
-    <p>
+    <!-- <p>
         <a routerLink="/login" (click)="clear()">Volver a Login</a>
       
-    </p>
+    </p> -->
+    <br>
       <ion-button fill='solid' expand="block" color='dark' (click)="onRegister()">REGISTRARSE</ion-button>
+      
+      <ion-button class="loginBtn" fill='solid' expand="block" color="#fa5657" routerLink="/login" (click)="clear()">LOGIN</ion-button>
   </div>  
 </ion-content>

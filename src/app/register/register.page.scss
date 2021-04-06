@@ -1,5 +1,10 @@
+ion-content.background{
+    --background: url(../../assets/background_rot.png) 0 0/100% 100% no-repeat;
+}
+
 .registerPage{
-    padding-top: 25% !important;
+    padding-top: 35% !important;
+    padding: 5%;
     //padding-bottom: 50% !important;
     text-align: center !important;
 }
@@ -8,3 +13,21 @@
     height: 10vh;
     margin-bottom: 3vh; 
 }
+
+ion-item {
+    --background: transparent;
+    --color: rgba(255, 255, 255, 0.674);
+    --border-color: #273b7a;
+    --border-radius: 1rem;
+    //--border-style: 2px solid #273B7A;
+    // ion-input {
+    //   font-size: 1.2rem;
+    // }
+    // ion-label {
+    //   font-size: 1.2rem;
+    // }
+  }
+  
+  .button{
+      margin-top: 0.5rem;
+  }

@@ -24,4 +24,10 @@ export class RegisterPage implements OnInit {
       }
     }
 
+    clear(){
+      this.user.email = null;
+      this.user.password= null;
+      this.user.cpassword = null;
+    }
+
 }

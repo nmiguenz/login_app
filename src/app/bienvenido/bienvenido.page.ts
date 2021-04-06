@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { User } from '../class/user.class';
 
 
 @Component({
@@ -20,5 +21,6 @@ export class BienvenidoPage implements OnInit {
     console.log('Log out!');
     this.afauth.signOut();
     this.route.navigate(['/login']);
+    
   }
 }

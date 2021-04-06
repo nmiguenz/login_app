@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonicModule, ToastController } from '@ionic/angular';
 import { User } from '../class/user.class';
 import { AuthService } from '../services/auth.service';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -14,10 +14,13 @@ import { AuthService } from '../services/auth.service';
 export class LoginPage implements OnInit {
 
   showPassword = false;
-  passwordToggleEye = "eye";
+  passwordToggleEye = "eye-off";
+  public formularioLogin : FormGroup;
 
-  constructor(private authSvc: AuthService, private alertCtrl: AlertController ,private route:Router) { }
+  constructor(public formBuilder: FormBuilder, private authSvc: AuthService, private toastCtrl: ToastController,private route:Router) { }
+  
   user : User = new User();
+  
   ngOnInit() {
   }
 
@@ -25,22 +28,21 @@ export class LoginPage implements OnInit {
     try {
         const user = await this.authSvc.onLogin(this.user);
         if(user){
-          this.handleBienvenida()
-          console.log("El usuario se logueo OK");
+          this.handleBienvenida();
           this.route.navigate(['/bienvenido']);
+          this.clear();
         }
     } catch (error) {
-      console.dir(error)
-      this.handleError(error.message)
+      console.log('Error login')
     }   
   }
   
     cambiarOjo(){
       this.showPassword =!this.showPassword;
-      if(this.passwordToggleEye === "eye")
-        this.passwordToggleEye = "eye-off";
+      if(this.passwordToggleEye === "eye-off")
+        this.passwordToggleEye = "eye";
       else
-        this.passwordToggleEye="eye";
+        this.passwordToggleEye="eye-off";
     }
   
     clear(){
@@ -49,42 +51,14 @@ export class LoginPage implements OnInit {
       this.showPassword = false;
     }
   
-  
+    //Bienvenida y eror de login con TOASTCONTROLLER
     async handleBienvenida() {
-      const alert = await this.alertCtrl.create({
-        header: 'Bienvenido nuevamente',
-        message: this.user.email,
-        buttons: ['Continuar']
+      const alert = await this.toastCtrl.create({
+        message: 'Bienvenido nuevamente '+this.user.email,
+        duration:3000,
+        position:'middle'
       });
-  
       await alert.present();
-    }
-  
-    async handleError(cadena:string) {
-      if(cadena === 'The email address is badly formatted.'){
-        const alert = await this.alertCtrl.create({
-          header: 'ERROR!',
-          message: 'El correo electrónico no tiene el formato correcto',
-          buttons: ['Continuar']
-        });
-        await alert.present();
-      }
-      else if(cadena === "The password is invalid or the user does not have a password."){
-        const alert = await this.alertCtrl.create({
-          header: 'ERROR!',
-          message: 'La clave es erronea o no incluyó una',
-          buttons: ['Continuar']
-        });
-        await alert.present();
-      }
-      else{
-        const alert = await this.alertCtrl.create({
-          header: 'ERROR!',
-          message: 'No se encontró el usuario ingresado.',
-          buttons: ['Continuar']
-        });
-        await alert.present();
-      }
     }
   
 }
